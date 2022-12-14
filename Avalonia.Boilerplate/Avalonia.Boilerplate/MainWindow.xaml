@@ -18,7 +18,7 @@
             <!-- We must not need this margin, as the title bar has smaller height when is maximized.
                  Moreover, this is wrong when the window is maximized and does not has titlebar-->
 
-            <Setter Property="Margin" Value="{Binding MaximizedMargin, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/> 
+            <Setter Property="Margin" Value="8"/> 
         </Style>
         <Style Selector="CaptionButtons /template/ Panel#PART_FullScreenButton">
             <Setter Property="IsVisible" Value="False"/>
@@ -33,7 +33,7 @@
             <Setter Property="IsVisible" Value="{Binding ShowClose, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
             <Setter Property="IsEnabled" Value="{Binding EnableClose, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         </Style>
-        <Style Selector="TitleBar /template/ Border TextBlock#PART_TitleHolder">
+        <!--<Style Selector="TitleBar /template/ Border TextBlock#PART_TitleHolder">
             <Setter Property="IsVisible" Value="True"/>
             <Setter Property="Text" Value="MyTitle"/>
             <Setter Property="Foreground" Value="Red"/>
@@ -45,6 +45,9 @@
             <Setter Property="Margin" Value="16 4 160 0"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="600"/>
+        </Style>-->
+        <Style Selector="TitleBar">
+            <Setter Property="Background" Value="Red"/>
         </Style>
     </Window.Styles>
 

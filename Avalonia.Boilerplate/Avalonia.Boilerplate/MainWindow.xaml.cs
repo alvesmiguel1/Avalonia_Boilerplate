@@ -1,8 +1,11 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Chrome;
+using Avalonia.Controls.Primitives;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
+using Avalonia.VisualTree;
 using System;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
@@ -12,7 +15,37 @@ namespace Avalonia.Boilerplate {
         private readonly IDisposable windowDecorationMarginSubscription;
 
         public MainWindow() {
-            windowDecorationMarginSubscription = this.GetObservable(WindowDecorationMarginProperty).Subscribe(decoration => ExtendClientAreaTitleBarHeightHint = 234);
+            /*windowDecorationMarginSubscription = this.GetObservable(WindowStateProperty).Subscribe(property => {
+                if (property == WindowState.Maximized)
+                {
+                    ExtendClientAreaTitleBarHeightHint = 41;
+                } else
+                {
+                    ExtendClientAreaTitleBarHeightHint = 34;
+                }
+                
+            });*/
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                windowDecorationMarginSubscription = this.GetObservable(WindowStateProperty).Subscribe(state => {
+                    if (state == WindowState.Maximized)
+                    {
+                        ExtendClientAreaTitleBarHeightHint = 41; // 34 + Margin (7px)
+                    }
+                    else
+                    {
+                        ExtendClientAreaTitleBarHeightHint = 34;
+                    }
+
+                });
+            } else
+            {
+                ExtendClientAreaTitleBarHeightHint = 34;
+            }
+            
+
+            //ExtendClientAreaTitleBarHeightHint = WindowState == WindowState.Maximized ? 48 : 34;
+            //ExtendClientAreaTitleBarHeightHint = 34;
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools(new Input.KeyGesture(Input.Key.F8));
@@ -25,8 +58,8 @@ namespace Avalonia.Boilerplate {
                 window.Show(GetWindow());
             };
         }
-        
-        
+
+
         private Window CreateSampleWindow() {
             var window = new Window
             {
@@ -110,5 +143,27 @@ namespace Avalonia.Boilerplate {
             get => GetValue(ShowPopInProperty);
             set => SetValue(ShowPopInProperty, value);
         }
+
+        /*protected override void HandleWindowStateChanged(WindowState state)
+        {
+            base.HandleWindowStateChanged(state);
+            if (state == WindowState.Maximized)
+            {
+                ExtendClientAreaTitleBarHeightHint = 48; // 34 + 7
+                var titleBar = this.FindDescendantOfType<TitleBar>();
+                titleBar.Margin = new Thickness(titleBar.Margin.Left, titleBar.Margin.Top, titleBar.Margin.Right, 0);
+            }
+            else
+            {
+                ExtendClientAreaTitleBarHeightHint = 34;
+            }
+        }
+
+        protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+        {
+            base.OnApplyTemplate(e);
+            var titleBar = this.FindDescendantOfType<TitleBar>();
+            titleBar.Margin = new Thickness(titleBar.Margin.Left, titleBar.Margin.Top, titleBar.Margin.Right, 0);
+        }*/
     }
 }
