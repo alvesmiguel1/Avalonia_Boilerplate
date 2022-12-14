@@ -2,8 +2,56 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Avalonia.Boilerplate.MainWindow"
-        Title="Avalonia.Boilerplate">
-    <Button Name="Dialog" ToolTip.Tip="Shows a dialog">_Dialog</Button>
+        Title="Avalonia.Boilerplate"
+        MinWidth="1080"
+        MinHeight="600"
+        ExtendClientAreaChromeHints="PreferSystemChrome"
+        ExtendClientAreaToDecorationsHint="True"
+		Padding="2">
+
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="White"/>
+        </Style>
+        <Style Selector="Window:win:maximized /template/ ContentPresenter#PART_ContentPresenter">
+            <!-- We must not need this margin, as the title bar has smaller height when is maximized.
+                 Moreover, this is wrong when the window is maximized and does not has titlebar-->
+
+            <Setter Property="Margin" Value="{Binding MaximizedMargin, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/> 
+        </Style>
+        <Style Selector="CaptionButtons /template/ Panel#PART_FullScreenButton">
+            <Setter Property="IsVisible" Value="False"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Panel#PART_MinimiseButton">
+            <Setter Property="IsVisible" Value="{Binding AllowMinimize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Panel#PART_RestoreButton">
+            <Setter Property="IsVisible" Value="{Binding AllowRestoreOrMaximize, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Style>
+        <Style Selector="CaptionButtons /template/ Panel#PART_CloseButton">
+            <Setter Property="IsVisible" Value="{Binding ShowClose, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Setter Property="IsEnabled" Value="{Binding EnableClose, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Style>
+        <Style Selector="TitleBar /template/ Border TextBlock#PART_TitleHolder">
+            <Setter Property="IsVisible" Value="True"/>
+            <Setter Property="Text" Value="MyTitle"/>
+            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+        </Style>
+        <Style Selector=":win TitleBar /template/ Border TextBlock#PART_TitleHolder">
+            <Setter Property="Margin" Value="16 4 160 0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="600"/>
+        </Style>
+    </Window.Styles>
+
+    <DockPanel>
+        <TabControl Name="tabControl">
+            <Label>Welcome to Avalonia!</Label>
+        </TabControl>
+        <Button Name="Dialog" ToolTip.Tip="Open a dialog">_Dialog</Button>
+    </DockPanel>
 </Window>
