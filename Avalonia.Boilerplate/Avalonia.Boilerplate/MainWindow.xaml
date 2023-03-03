@@ -1,9 +1,180 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Avalonia.Boilerplate.MainWindow"
-        Title="Avalonia.Boilerplate">
-    <Button Name="Dialog" ToolTip.Tip="Shows a dialog">_Dialog</Button>
+        xmlns:local="clr-namespace:Avalonia.Boilerplate"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Icon="resm:Avalonia.Boilerplate.ServiceStudio.ico"
+        MinWidth="1080"
+        MinHeight="600"
+        Title="ODC"
+        ExtendClientAreaToDecorationsHint="True"
+        Padding="2">
+
+    <Window.Styles>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="#171B1F"/>
+        </Style>
+    </Window.Styles>
+    
+    <NativeMenu.Menu>
+        <NativeMenu />
+    </NativeMenu.Menu>
+    
+    <Grid>
+        <Grid.DataTemplates>
+            <DataTemplate DataType="{x:Type local:TabHeaderInfo}">
+                <DockPanel Height="16">
+                    <Image Source="{Binding ImageSource}"
+                        IsVisible="{Binding ImageVisibility}"
+                        Width="16"
+                        DockPanel.Dock="Left"
+                        Margin="8 0 0 0"/>
+                    <Button IsVisible="{Binding AllowClose}"
+                        IsEnabled="{Binding IsEnabled}"
+                        Width="16"
+                        Height="16"
+                        Padding="0"
+                        Focusable="False"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        DockPanel.Dock="Right"
+                        Margin="0 0 8 0">
+                        <Button.Styles>
+                            <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Style>
+                            <Style Selector="Button">
+                                <Setter Property="Foreground" Value="#87898D"/>
+                            </Style>
+                            <Style Selector="TabItem:selected Button">
+                                <Setter Property="Foreground" Value="#E0E2E4"/>
+                            </Style>
+                            <Style Selector="Button:pointerover">
+                                <Setter Property="Foreground" Value="#E0E2E4"/>
+                            </Style>
+                            <Style Selector="Button:pressed">
+                                <Setter Property="Foreground" Value="#E0E2E4"/>
+                            </Style>
+                        </Button.Styles>
+                        <Path Stroke="{Binding (Button.Foreground),
+                                RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}"
+                            Width="8"
+                            Height="8"
+                            StrokeThickness="1"
+                            Data="M 0,0 10,10 M 10,0 0,10"
+                            Stretch="Uniform" />
+                    </Button>
+                    <TextBlock Text="{Binding Caption}"
+                        Margin="8 0 8 0"
+                        FontSize="12"
+                        TextTrimming="CharacterEllipsis"
+                        VerticalAlignment="Center">
+                        <TextBlock.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="Foreground" Value="#A2A4A7"/>
+                            </Style>
+                            <Style Selector="TabItem:pointerover TextBlock">
+                                <Setter Property="Foreground" Value="#F1F2F4"/>
+                            </Style>
+                            <Style Selector="TabItem:pressed TextBlock">
+                                <Setter Property="Foreground" Value="#F1F2F4"/>
+                            </Style>
+                            <Style Selector="TabItem:selected TextBlock">
+                                <Setter Property="Foreground" Value="#F1F2F4"/>
+                            </Style>
+                        </TextBlock.Styles>
+                    </TextBlock>
+                </DockPanel>
+            </DataTemplate>
+        </Grid.DataTemplates>
+        
+        <Grid.Resources>
+            <System:Double x:Key="toggleButtonWidth">24.0</System:Double>
+            <System:Double x:Key="toggleButtonHeight">24.0</System:Double>
+        </Grid.Resources>
+    
+        <NativeMenuBar />
+    
+        <TabControl Name="tabs" Padding="0">
+            <TabControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <local:TabItemsControl RowDefinitions="Auto, Auto"
+                                           TabItemsIndex="1">
+                        <DockPanel Grid.RowSpan="2"
+                            HorizontalAlignment="Stretch"
+                            Margin="{Binding TitleBarMargin, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}">
+                            
+                            <ToggleButton Width="{StaticResource toggleButtonWidth}"
+                                Height="{StaticResource toggleButtonHeight}"
+                                Margin="4 0 16 0"
+                                BorderThickness="0"
+                                DockPanel.Dock="Left"
+                                HorizontalAlignment="Left">
+                                <Path Fill="{Binding (ToggleButton.Foreground),
+                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}"
+                                    Data="M8,12L4,6L12, 6Z"
+                                    Width="16"
+                                    Height="16"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                                <ToggleButton.Styles>
+                                    <Style Selector="ToggleButton">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="#A2A4A7"/>
+                                    </Style>
+                                    <Style Selector="ToggleButton /template/ ContentPresenter">
+                                        <Setter Property="CornerRadius" Value="4"/>
+                                    </Style>
+                                    <Style Selector="ToggleButton:pointerover">
+                                        <Setter Property="Foreground" Value="#E0E2E4"/>
+                                        <Setter Property="Background" Value="#123661"/>
+                                    </Style>
+                                    <Style Selector="ToggleButton:pressed /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="#006DE9"/>
+                                    </Style>
+                                    <Style Selector="ToggleButton:checked /template/ ContentPresenter">
+                                        <Setter Property="Background" Value="#006DE9"/>
+                                    </Style>
+                                    <Style Selector="ToggleButton:pressed">
+                                        <Setter Property="Foreground" Value="#171B1F"/>
+                                    </Style>
+                                    <Style Selector="ToggleButton:checked">
+                                        <Setter Property="Foreground" Value="#171B1F"/>
+                                    </Style>
+                                </ToggleButton.Styles>
+                            </ToggleButton>
+                        </DockPanel>
+                        <Border BorderBrush="#3B3D41" BorderThickness="0 0 0 1" Grid.Row="1" ZIndex="-1"/>
+                    </local:TabItemsControl>
+                </ItemsPanelTemplate>
+            </TabControl.ItemsPanel>
+            <TabControl.Styles>
+                <Style Selector="TabItem">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Height" Value="{Binding WindowDecorationMargin.Top}"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1" />
+                    <Setter Property="Padding" Value="8,8,8,7" />
+                    <Setter Property="BorderBrush" Value="#202327" />
+                </Style>
+                <Style Selector="TabItem:pointerover">
+                    <Setter Property="Background" Value="#2C2F32"/>
+                </Style>
+                <Style Selector="TabItem:pressed">
+                    <Setter Property="Background" Value="#2C2F32"/>
+                </Style>
+                <Style Selector="TabItem:selected">
+                    <Setter Property="Background" Value="#202327"/>
+                    <Setter Property="BorderThickness" Value="1 1 1 0" />
+                    <Setter Property="Padding" Value="7,7,7,8" />
+                    <Setter Property="BorderBrush" Value="#3B3D41" />
+                </Style>
+                <Style Selector="TabItem:selected:hide">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1" />
+                </Style>
+            </TabControl.Styles>
+        </TabControl>
+    </Grid>
 </Window>

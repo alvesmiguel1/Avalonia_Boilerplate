@@ -1,32 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="App.xaml" />
-    <None Remove="MainWindow.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AvaloniaXaml Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaXaml>
-    <AvaloniaXaml Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </AvaloniaXaml>
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.10.999-cibuild0030553-beta" />
     <PackageReference Include="Avalonia.Desktop" Version="0.10.999-cibuild0030553-beta" />
     <PackageReference Include="Avalonia.Diagnostics" Version="0.10.999-cibuild0030553-beta" />
    </ItemGroup>
   <ItemGroup>
-    <Compile Update="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
+    <None Remove="App.xaml" />
+    <AvaloniaResource Include="App.xaml" />
+    <None Remove="MainWindow.xaml" />
+    <AvaloniaResource Include="MainWindow.xaml" />
+    <None Remove="DummyContent.xaml" />
+    <AvaloniaResource Include="DummyContent.xaml" />
+    <None Remove="Themes\BaseTheme.xaml" />
+    <AvaloniaResource Include="Themes\BaseTheme.xaml" />
+    <EmbeddedResource Include="ServiceStudio.ico" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,17 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="Avalonia.Boilerplate.App">
+             x:Class="Avalonia.Boilerplate.App"
+             Name="MyApp">
+    <NativeMenu.Menu>
+        <NativeMenu>
+            <NativeMenuItem Header="About My App"/>
+            <NativeMenuItemSeperator/>
+            <NativeMenuItem Header="Preferences..." />
+        </NativeMenu>
+    </NativeMenu.Menu>
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+        <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml"/>
+        <StyleInclude Source="/Themes/BaseTheme.xaml" />
     </Application.Styles>
 </Application>
