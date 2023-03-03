@@ -6,7 +6,7 @@
         Icon="resm:Avalonia.Boilerplate.ServiceStudio.ico"
         MinWidth="1080"
         MinHeight="600"
-        Title="ODC"
+        Title="Title bar is fixed and our custom one is below"
         ExtendClientAreaToDecorationsHint="True"
         Padding="2">
 

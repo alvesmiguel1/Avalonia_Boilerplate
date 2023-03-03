@@ -27,8 +27,7 @@ namespace Avalonia.Boilerplate {
             
             RefreshExtendClientAreaChromeHints();
             InitializeWindowState();
-            
-            
+ 
             tabs = this.FindControl<TabControl>("tabs");
             AddDummyTab();
         }
@@ -65,10 +64,14 @@ namespace Avalonia.Boilerplate {
             Width = 1721;
             Height = 1095;
             WindowState = WindowState.Maximized;
+
+            // simulate system decoration change: in the original app, seems to be caused by Position set
+            SystemDecorations = SystemDecorations.BorderOnly;
+            
+            // simulate a change back to Full
+            SystemDecorations = SystemDecorations.Full;
         }
 
-
-        
         private void AddDummyTab()
         {
             var tabHeaderInfo = new TabHeaderInfo {
@@ -87,7 +90,6 @@ namespace Avalonia.Boilerplate {
 
             ((IList)tabs.Items).Add(tab);
         }
-
 
         private void InitializeComponent()
         {
