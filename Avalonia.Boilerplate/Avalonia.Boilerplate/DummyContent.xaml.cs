@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Platform;
 using Avalonia.VisualTree;
 
 namespace Avalonia.Boilerplate
@@ -15,8 +16,24 @@ namespace Avalonia.Boilerplate
 
             var btnModal = this.FindControl<Button>("btn-modal");
             btnModal.Click += BtnModalOnClick;
+            
+            var btnWithoutParent = this.FindControl<Button>("btn-without-parent");
+            btnWithoutParent.Click += BtnWithoutParentOnClick;
         }
-        
+
+        private void BtnWithoutParentOnClick(object? sender, RoutedEventArgs e)
+        {
+            var w = new Window
+            {
+                Width = 200, 
+                Height = 200, 
+                ExtendClientAreaToDecorationsHint = true, 
+                ExtendClientAreaChromeHints=ExtendClientAreaChromeHints.PreferSystemChrome, 
+                CanResize = false
+            };
+            w.Show();
+        }
+
         private void BtnModalOnClick(object sender, RoutedEventArgs e)
         {
             var w = new Window { Width = 200, Height = 200 };

@@ -5,6 +5,7 @@
     <StackPanel>
         <Button Name="btn" Height="100" Width="150"> New Dialog </Button>
         <Button Name="btn-modal" Height="100" Width="150"> New Modal Dialog </Button>
+        <Button Name="btn-without-parent" Height="100" Width="150"> New Window without parent</Button>
     </StackPanel>
         
 </UserControl>

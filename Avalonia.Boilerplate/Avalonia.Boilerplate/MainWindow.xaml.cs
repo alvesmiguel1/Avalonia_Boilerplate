@@ -66,10 +66,10 @@ namespace Avalonia.Boilerplate {
             WindowState = WindowState.Maximized;
 
             // simulate system decoration change: in the original app, seems to be caused by Position set
-            SystemDecorations = SystemDecorations.BorderOnly;
+            //SystemDecorations = SystemDecorations.BorderOnly;
             
             // simulate a change back to Full
-            SystemDecorations = SystemDecorations.Full;
+            //SystemDecorations = SystemDecorations.Full;
         }
 
         private void AddDummyTab()
